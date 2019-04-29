@@ -551,7 +551,7 @@ Draw.loadPlugin(function(ui) {
 			headerProps.push("childLayout=stackLayout");
 			headerProps.push("horizontal=1");
 			headerProps.push("startSize=26");
-			headerProps.push("fillColor=#e0e0e0");
+			headerProps.push("fillColor=#E2E4FE");
 			headerProps.push("horizontalStack=0");
 			headerProps.push("resizeParent=1");
 			headerProps.push("resizeLast=0");
