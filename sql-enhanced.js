@@ -99,7 +99,7 @@ Draw.loadPlugin(function(ui) {
 				tableRowProps.push("left=0");
 				tableRowProps.push("right=0");
 				tableRowProps.push("bottom=0");
-				tableRowProps.push("align=left";)
+				tableRowProps.push("align=left");
 				tableRowProps.push("verticalAlign=top");
 				tableRowProps.push("spacingTop=-2");
 				tableRowProps.push("fillColor=none");
