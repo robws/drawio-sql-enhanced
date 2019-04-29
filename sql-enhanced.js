@@ -91,9 +91,29 @@ Draw.loadPlugin(function(ui) {
                 }
             })
         }
-
-        rowCell = new mxCell(cellName, new mxGeometry(0, 0, 90, 26),
-            'shape=partialRectangle;top=0;left=0;right=0;bottom=0;align=left;verticalAlign=top;spacingTop=-2;fillColor=none;spacingLeft=64;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;dropTarget=0;');
+				tableRowProps=[];
+				tableRowProps.push("shape=partialRectangle")
+				tableRowProps.push("fontFamily=Fira Sans");
+				tableRowProps.push("fontSize=15");
+				tableRowProps.push("top=0");
+				tableRowProps.push("left=0");
+				tableRowProps.push("right=0");
+				tableRowProps.push("bottom=0");
+				tableRowProps.push("align=left";)
+				tableRowProps.push("verticalAlign=top");
+				tableRowProps.push("spacingTop=-2");
+				tableRowProps.push("fillColor=none");
+				tableRowProps.push("spacingLeft=64");
+				tableRowProps.push("spacingRight=4");
+				tableRowProps.push("overflow=hidden");
+				tableRowProps.push("rotatable=0");
+				tableRowProps.push("points=[[0,0.5],[1,0.5]]");
+				tableRowProps.push("portConstraint=eastwest");
+				tableRowProps.push("dropTarget=0");
+				
+				tableRowPropstring=tableRowProps.join(";");
+				
+        rowCell = new mxCell(cellName, new mxGeometry(0, 0, 90, 26),tableRowPropstring);
         rowCell.vertex = true;
 
         var columnType = propertyModel.IsPrimaryKey && propertyModel.IsForeignKey ? 'PK | FK' : propertyModel.IsPrimaryKey ? 'PK' : propertyModel.IsForeignKey ? 'FK' : '';
