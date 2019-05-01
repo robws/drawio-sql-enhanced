@@ -5,6 +5,7 @@ Draw.loadPlugin(function(ui) {
 
     function TableModel() {
         this.Name = null;
+        this.ObjectType = null;
         this.Properties = []
     }
 
@@ -93,7 +94,7 @@ Draw.loadPlugin(function(ui) {
         }
 				tableRowProps=[];
 				tableRowProps.push("shape=partialRectangle")
-				tableRowProps.push("fontFamily=Fira Sans");
+				tableRowProps.push("fontFamily=Open Sans");
 				tableRowProps.push("fontSize=15");
 				tableRowProps.push("top=0");
 				tableRowProps.push("left=0");
@@ -171,7 +172,14 @@ Draw.loadPlugin(function(ui) {
         //Add ForeignKey Destination
         foreignKeyList.push(foreignKeyDestinationModel);
     };
-
+/**
+* @function ParseSQLServerForeignKey
+* @description
+* @param {string} name - 
+* @param {string}  currentTableModel - 
+* @returns
+* @example
+*/
     function ParseSQLServerForeignKey(name, currentTableModel) {
         var referencesIndex = name.toLowerCase().indexOf("references");
 
@@ -318,6 +326,7 @@ Draw.loadPlugin(function(ui) {
         return table;
     };
 
+
     function ParseSQLServerName(name, property) {
         name = name.replace('[dbo].[', '');
         name = name.replace('](', '');
@@ -361,7 +370,7 @@ Draw.loadPlugin(function(ui) {
 
         return name;
     };
-
+	
     function parseSql(text, type) {
         var lines = text.split('\n');
         dx = 0;
@@ -384,15 +393,26 @@ Draw.loadPlugin(function(ui) {
 
             var propertyRow = tmp.substring(0, 12).toLowerCase();
 
-            //Parse Table
-            if (propertyRow === 'create table') {
+			var parseTable=false;
+			if (propertyRow.toUpperCase() === "CREATE VIEW")
+			{
+				currentTableModel.ObjectType="view";
+				parseTable=true;
+			}
+			if (propertyRow.toUpperCase() === "CREATE TABLE")
+			{
+				currentTableModel.ObjectType="table";
+				parseTable=true;
+			}
+
+            if (parseTable) {
 
                 //Parse row
                 var name = mxUtils.trim(tmp.substring(12));
 
                 //Parse Table Name
                 name = ParseTableName(name);
-
+				
                 if (currentTableModel !== null) {
                     //Add table to the list
                     tableList.push(currentTableModel);
@@ -563,16 +583,43 @@ Draw.loadPlugin(function(ui) {
         //Create Table in UI
         CreateTableUI();
     };
+    
+	function getColorForObjectType(objectType){
+		var colorCode="";
+		switch(objectType){
+			case 'table':
+				return "#E2E7FE"
+			case 'view':
+				return "#FAFBD7"
+			default: 
+				return "#FDE5E3";
+		}
+	}
 
     function CreateTableUI() {
 
         tableList.forEach(function(tableModel) {
             //Define table size width
             var maxNameLenght = 100 + tableModel.Name.length;
-
+			thisFillColor=getColorForObjectType(tableModel.ObjectType);
+			
+			tableRowProps.push("swimlane")
+			tableRowProps.push("fontStyle=0")
+			tableRowProps.push("childLayout=stackLayout")
+			tableRowProps.push("horizontal=1")
+			tableRowProps.push("startSize=26")
+			tableRowProps.push("fillColor=" + thisFillColor)
+			tableRowProps.push("horizontalStack=0")
+			tableRowProps.push("resizeParent=1")
+			tableRowProps.push("resizeLast=0")
+			tableRowProps.push("collapsible=1")
+			tableRowProps.push("marginBottom=0")
+			tableRowProps.push("swimlaneFillColor=#ffffff")
+			tableRowProps.push("align=center")
+			tableRowPropstring:=tableRowProps.join(";");
+			
             //Create Table
-            tableCell = new mxCell(tableModel.Name, new mxGeometry(dx, 0, maxNameLenght, 26),
-                'swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;');
+            tableCell = new mxCell(tableModel.Name, new mxGeometry(dx, 0, maxNameLenght, 26),tableRowPropstring
             tableCell.vertex = true;
 
             //Resize row
