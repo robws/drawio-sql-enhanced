@@ -616,7 +616,7 @@ Draw.loadPlugin(function(ui) {
 			tableRowProps.push("marginBottom=0")
 			tableRowProps.push("swimlaneFillColor=#ffffff")
 			tableRowProps.push("align=center")
-			tableRowPropstring:=tableRowProps.join(";");
+			tableRowPropstring=tableRowProps.join(";");
 			
             //Create Table
             tableCell = new mxCell(tableModel.Name, new mxGeometry(dx, 0, maxNameLenght, 26),tableRowPropstring
