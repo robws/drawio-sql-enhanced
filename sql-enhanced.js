@@ -589,10 +589,10 @@ Draw.loadPlugin(function(ui) {
     
 	function getColorForObjectType(objectType){
 		var colorCode="";
-		switch(objectType){
-			case 'table':
+		switch(objectType.toUpperCase()){
+			case 'TABLE':
 				return "#E2E7FE"
-			case 'view':
+			case 'VIEW':
 				return "#FAFBD7"
 			default: 
 				return "#FDE5E3";
