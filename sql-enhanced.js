@@ -605,7 +605,7 @@ Draw.loadPlugin(function(ui) {
             //Define table size width
             var maxNameLenght = 100 + tableModel.Name.length;
 			thisFillColor=getColorForObjectType(tableModel.ObjectType);
-			
+			tableRowProps=[];
 			tableRowProps.push("swimlane")
 			tableRowProps.push("fontStyle=0")
 			tableRowProps.push("childLayout=stackLayout")
