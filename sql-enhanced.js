@@ -393,15 +393,17 @@ Draw.loadPlugin(function(ui) {
 
             var propertyRow = tmp.substring(0, 12).toLowerCase();
 
+			var objectType="";
 			var parseTable=false;
+
 			if (propertyRow.toUpperCase() === "CREATE VIEW")
 			{
-				currentTableModel.ObjectType="view";
+				objectType="view";
 				parseTable=true;
 			}
 			if (propertyRow.toUpperCase() === "CREATE TABLE")
 			{
-				currentTableModel.ObjectType="table";
+				objectType="table";
 				parseTable=true;
 			}
 
@@ -420,6 +422,7 @@ Draw.loadPlugin(function(ui) {
 
                 //Create Table
                 currentTableModel = CreateTable(name);
+                currentTableModel.ObjectType=objectType;
             }
             // Parse Properties 
             else if (tmp !== '(' && currentTableModel != null && propertyRow !== 'alter table ') {
