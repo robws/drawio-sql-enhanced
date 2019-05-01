@@ -619,7 +619,7 @@ Draw.loadPlugin(function(ui) {
 			tableRowPropstring=tableRowProps.join(";");
 			
             //Create Table
-            tableCell = new mxCell(tableModel.Name, new mxGeometry(dx, 0, maxNameLenght, 26),tableRowPropstring
+            tableCell = new mxCell(tableModel.Name, new mxGeometry(dx, 0, maxNameLenght, 26),tableRowPropstring);
             tableCell.vertex = true;
 
             //Resize row
