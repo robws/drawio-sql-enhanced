@@ -396,12 +396,13 @@ Draw.loadPlugin(function(ui) {
 			var objectType="";
 			var parseTable=false;
 
-			if (propertyRow.toUpperCase() === "CREATE VIEW")
+			
+			if (propertyRow.match(/create.view/gi))
 			{
 				objectType="view";
 				parseTable=true;
 			}
-			if (propertyRow.toUpperCase() === "CREATE TABLE")
+			if(propertyRow.match(/create.table/gi))
 			{
 				objectType="table";
 				parseTable=true;
